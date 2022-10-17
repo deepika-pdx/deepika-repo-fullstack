@@ -10,7 +10,22 @@ let ol = document.querySelector("#results");
 // Get the country objects list using fetch API
 let getData = (url) => {
   fetch(url)
-    .then((response) => response.json())
+    // Throwing error in case the response is invalid
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not OK.");
+      }
+      return response;
+    })
+    // Checking if empty response was returned
+    .then((response) => {
+      if (response.body == null) {
+        console.error("No response was returned for the fetch operation!");
+        return {};
+      } else {
+        return response.json();
+      }
+    })
     .then((data) => {
       // Sort the list of country objects alphabetically
       let sortedData = data.sort(function (countryName1, countryName2) {
@@ -27,6 +42,10 @@ let getData = (url) => {
         li.appendChild(document.createTextNode(`${countryName} - ${population}`));
         ol.appendChild(li);
       });
+    })
+    // Handling fetch opeartion error
+    .catch((error) => {
+      console.error("There is some error with the fetch operation: ", error);
     });
 };
 
