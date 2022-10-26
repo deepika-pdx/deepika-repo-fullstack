@@ -19,7 +19,7 @@ function displayFormDetails(event) {
   console.log(`   Email: ${email}`);
 
   // Checking if feedback was submitted
-  if (feedback !== null && feedback !== "") {
+  if (feedback !== null) {
     console.log(`   Feedback: ${feedback}`);
   } else {
     console.log("   Feedback: No feedback was submitted.");
