@@ -1,0 +1,22 @@
+<!-- @format -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>User Details Form</title>
+  </head>
+  <body>
+    <form method="post" action="/submit">
+      <label for="username">Username: </label>
+      <input name="username" /><br /><br />
+      <label for="email">Email: </label>
+      <input type="email" name="email" /><br /><br />
+      <label for="comments">Comments: </label>&nbsp;&nbsp; <textarea name="comments" rows="2"></textarea><br /><br />
+      <input type="checkbox" name="newsletterCheck" value="" />
+      <label for="newsletterCheck">Sign up for the newsletter</label><br /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
