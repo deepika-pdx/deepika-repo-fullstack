@@ -1,4 +1,6 @@
-const express = require('express');
+/** @format */
+
+const express = require("express");
 const app = express();
 const port = process.env.PORT || 5001;
 
@@ -12,37 +14,60 @@ const port = process.env.PORT || 5001;
 
 // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
 
-const routes = [
-  'welcome',
-  'redirect',
-  'redirected',
-  'cache',
-  'cookie',
-  'other',
-];
+const routes = ["welcome", "redirect", "redirected", "cache", "cookie", "other"];
 
 let getRoutes = () => {
-  let result = '';
+  let result = "";
 
-  routes.forEach(
-    (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`)
-  );
+  routes.forEach((elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`));
 
   return result;
 };
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   let routeResults = getRoutes();
 
-  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`<h1>Exercise 04</h1>`);
   res.write(`<ul> ${routeResults} </ul>`);
   res.end();
 });
 
-app.get('/welcome', (req, res) => {});
+app.get("/welcome", (req, res) => {
+  res.status(200);
+  res.set({ "Content-Type": "text/html" });
+  res.send("Welcome to the Routing Exercise!!");
+});
 
-// Add your code here
+app.get("/redirect", (req, res) => {
+  res.redirect(302, "/redirected");
+});
+
+app.get("/redirected", (req, res) => {
+  res.status(200);
+  res.set({ "Content-Type": "text/plain" });
+  res.send("Your request to /redirect has been redirected to this page.");
+});
+
+app.get("/cache", (req, res) => {
+  res.status(200);
+  res.set("Cache-control", "public, max-age=86400");
+  res.set({ "Content-Type": "text/plain" });
+  res.send("This resource was cached");
+});
+
+app.get("/cookie", (req, res) => {
+  res.status(200);
+  res.cookie("hello", "world");
+  res.set({ "Content-Type": "text/plain" });
+  res.send("cookies... yummm");
+});
+
+app.get("/*", (req, res) => {
+  res.status(404);
+  res.set({ "Content-Type": "text/html" });
+  res.send("<h1>404 - page not found</h1>");
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
