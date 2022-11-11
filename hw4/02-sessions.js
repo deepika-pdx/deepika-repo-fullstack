@@ -32,13 +32,13 @@ app.get("/*", (req, res) => {
     res.write(`<b>Welcome to http://localhost:${port}</b>`);
     res.end();
   } else if (currentUrl !== "/favicon.ico") {
-    req.session.userSession.push(currentUrl);
     res.write(`<b>Currently on route: ${currentUrl}</b>`);
     res.write(`<br>`);
     res.write(`<br>`);
     res.write(`<b>Previously visited: <b>`);
     res.write(`<br>`);
     res.write(req.session.userSession.join(`<br>`));
+    req.session.userSession.push(currentUrl);
     res.end();
   }
 });
